@@ -23,7 +23,11 @@ local dsp = require "luci.dispatcher"
 		});
 		
 	function openwebui(){
-		var url = window.location.host+":<%=luci.sys.exec("uci get filebrowser.@global[0].port"):gsub("^%s*(.-)%s*$", "%1")%>";
+		var url = window.location.host;
+		if (url.indexOf(':')) {
+			url = url.split(':')[0];
+		}
+		url = url+":<%=luci.sys.exec("uci get filebrowser.@global[0].port"):gsub("^%s*(.-)%s*$", "%1")%>";
 		window.open('http://'+url,'target','');
 	}
 //]]></script>
